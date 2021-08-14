@@ -1,0 +1,17 @@
+<mat-sidenav-container>
+
+    <mat-sidenav #sidenav mode="side" >
+        <mat-toolbar>
+            <span>Menú</span>
+        </mat-toolbar>
+        <app-sidebar></app-sidebar>
+    </mat-sidenav>
+
+    <mat-sidenav-content> 
+        <app-headers></app-headers>          
+        <router-outlet></router-outlet>      
+    </mat-sidenav-content>
+   
+</mat-sidenav-container>
+<app-footer class="footer"></app-footer>
+

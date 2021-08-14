@@ -1,0 +1,10 @@
+mat-card{
+
+    max-width: 300px;
+    margin: 5rem auto;
+    text-align: center;
+    height: 250px;
+}
+.full-width-input, button{
+    width: 100%;
+}

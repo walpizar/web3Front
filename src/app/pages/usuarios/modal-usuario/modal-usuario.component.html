@@ -1,0 +1,99 @@
+{{data?.titulo}}
+
+<mat-dialog-content>
+    <div class="modal-form">
+        <form [formGroup]="usuariosForms.baseForm">
+            <mat-form-field class="full-width-input">
+                <input 
+                    formControlName="username"
+                    matInput
+                    placeholder="Correo Electronico"
+                    required
+                    type="text"
+                />
+            </mat-form-field>
+
+            <mat-form-field class="full-width-input">
+                <input 
+                    formControlName="nombre"
+                    matInput
+                    placeholder="Nombre"
+                    required
+                    type="text"
+                />
+            </mat-form-field>
+
+            <mat-form-field class="full-width-input">
+                <input 
+                    formControlName="apellido1"
+                    matInput
+                    placeholder="Primer Apellido"
+                    required
+                    type="text"
+                />
+            </mat-form-field>
+
+            <mat-form-field class="full-width-input">
+                <input 
+                    formControlName="apellido2"
+                    matInput
+                    placeholder="Segundo Apellido"
+                    required
+                    type="text"
+                />
+            </mat-form-field>
+
+            
+            <mat-form-field class="full-width-input">
+                <mat-label>Genero</mat-label>
+                <mat-select formControlName="genero">
+                    <mat-option value="m">Masculino</mat-option>
+                    <mat-option value="f">Femenino</mat-option>
+                </mat-select>
+            </mat-form-field>
+
+            <mat-form-field class="full-width-input">
+                <input 
+                    formControlName="password"
+                    matInput
+                    placeholder="Contraseña"
+                    required
+                    type="password"
+                />
+            </mat-form-field>
+
+            <mat-form-field class="full-width-input">
+                <mat-label>Rol</mat-label>
+                <mat-select formControlName="role">
+                    <mat-option value="admin">Administrador</mat-option>
+                    <mat-option value="user">Usuario Normal</mat-option>
+                </mat-select>
+            </mat-form-field>
+
+            <mat-form-field class="full-width-input">
+                <mat-label>Estado</mat-label>
+                <mat-select formControlName="estado">
+                    <mat-option value="1">Activo</mat-option>
+                    <mat-option value="0">Inactivo</mat-option>
+                </mat-select>
+            </mat-form-field>
+
+       
+        </form>
+    </div>
+</mat-dialog-content>
+<mat-dialog-actions>
+
+    <button mat-button mat-dialog-close>Cancelar</button>
+    <button
+        mat-raised-button
+        color="primary"
+        [mat-dialog-close]="true"
+        (click)="guardar()" 
+        [disabled]="usuariosForms.baseForm.invalid">
+        Guardar
+
+    </button>
+
+
+</mat-dialog-actions>
