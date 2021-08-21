@@ -9,7 +9,7 @@ export class UsuariosController{
     static obtenerTodos = async(req:Request, res:Response)=>{
         
 
-        console.log("todos");
+  
         
         const usuarioRepo = getRepository(Usuarios);
 
@@ -18,10 +18,10 @@ export class UsuariosController{
       try {
 
         usuarios = await  usuarioRepo.find({select:['id','username',
-            'nombre','apellido1','apellido2','genero','role'], where:{estado:1}});
+            'nombre','apellido1','apellido2','genero','role','password','estado'], where:{estado:1}});
 
 
-        console.log(usuarios);    
+         
         return res.status(200).json(usuarios);
           
       } catch (error) {
@@ -116,6 +116,7 @@ export class UsuariosController{
 
     static modificar = async(req:Request, res:Response)=>{
        
+    
         let usuario;
     
         const  usuarioRepo = getRepository(Usuarios);
@@ -123,6 +124,9 @@ export class UsuariosController{
        const { id } = req.params;
        const { username, password, nombre, apellido1, apellido2, genero, role, estado} = req.body;
 
+       console.log(estado);
+
+     
        if(!id){
         return res.status(400).json({mensaje:'Falta el id'});
        }
@@ -168,7 +172,7 @@ export class UsuariosController{
         usuario.genero= genero;
         usuario.password= password;
         usuario.role= role;
-        usuario.estado= estado;
+        usuario.estado= estado=="true"? true:false;
 
         const validateOptions= {validationError:{target:false, value:false}};
         const errores = await validate(usuario, validateOptions );

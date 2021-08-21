@@ -24,12 +24,23 @@ export class UsuariosService {
 
   }
 
-  modificar():void{
+  modificar(usuario: Usuarios, id:number):Observable<Usuarios>{
+
+    const userToken= JSON.parse(localStorage.getItem('user')!); 
+    
+    return this.http.patch<Usuarios>(`${environment.URL}usuario/${id}`,usuario, 
+    {headers:{'auth':userToken.token}})
+    .pipe(catchError(this.handleError));
 
   }
 
-  eliminar():void{
+  eliminar(id:number):Observable<{}>{
 
+    const userToken= JSON.parse(localStorage.getItem('user')!); 
+    
+    return this.http.delete<Usuarios>(`${environment.URL}usuario/${id}`, 
+    {headers:{'auth':userToken.token}})
+    .pipe(catchError(this.handleError));
   }
 
   consultarTodos():Observable<Usuarios[]>{

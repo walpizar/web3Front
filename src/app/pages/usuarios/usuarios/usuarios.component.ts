@@ -3,6 +3,8 @@ import { MatTableDataSource } from '@angular/material/table';
 import { UsuariosService } from 'src/app/shared/services/usuarios.service';
 import {MatDialog} from '@angular/material/dialog';
 import { ModalUsuarioComponent } from '../modal-usuario/modal-usuario.component';
+import { ToastrService } from 'ngx-toastr';
+
 
 @Component({
   selector: 'app-usuarios',
@@ -17,7 +19,8 @@ export class UsuariosComponent implements OnInit {
 
   constructor(
     private srvUsuarios: UsuariosService,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    private toastr: ToastrService
   ) { }
 
   /*ngAfterViewInit(){
@@ -30,12 +33,34 @@ export class UsuariosComponent implements OnInit {
     this.cargar();
   }
 
-  abrirModal():void{
 
+
+  eliminar(id: number){
+
+   if(window.confirm('Desea eliminar?')){
+     this.srvUsuarios.eliminar(id).subscribe((res)=>{
+
+      this.cargar();
+     },(err)=>{
+
+      this.toastr.error("Error al eliminar el usuario");
+
+     } );
+
+   }
+
+
+
+
+  }
+
+  abrirModal(user={}):void{
+
+    console.log(user);
     let dialogRef= this.dialog.open(ModalUsuarioComponent,{
       height:'700px',
       width:'700px',
-      data:{titulo:'Nuevo Usuario'}
+      data:{titulo:'Nuevo Usuario', user}
 
     });
 
@@ -52,9 +77,10 @@ export class UsuariosComponent implements OnInit {
 
     this.srvUsuarios.consultarTodos().subscribe((lista)=>{
       this.dataSource.data=lista;
+      console.log(lista);
 
     },(err)=>{
-      alert(err);
+      this.toastr.error("Error al cargar la lista.");
     });
 
   }
